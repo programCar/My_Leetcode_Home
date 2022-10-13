@@ -1,0 +1,51 @@
+class Solution {
+
+
+    /**
+    *来源：力扣（LeetCode）
+    *链接：https://leetcode.cn/problems/running-sum-of-1d-array
+    *著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+    *问题：
+    *给你一个数组 nums 。数组「动态和」的计算公式为：runningSum[i] = sum(nums[0]…nums[i]) 。
+    *请返回 nums 的动态和。
+    *
+    *分析:
+    *动态和计算过程中，输出的数量和nums数组的长度相关且相等，而且输出的每一位数值都等于自己加上
+    *前面数字的和
+    *
+    *实现:
+    *可以先计算出nums数组的长度并且定义一个变量nums_length来储存这个值，然后再创建
+    *一个长度等于nums_length的数组，命名为sum，用于储存动态和计算过程所得到的每一位值，最后再创建一
+    *变量，用于储存每一位累加的值然后赋值给sum数组，返回sum数组
+    */
+
+
+    public int[] runningSum(int[] nums) {
+
+
+        int nums_length = nums.length;              //用于计算出nums数组的大小
+
+
+        int[] sum = new int[nums_length];          //创建出nums_number大小的数组，用于储存相加的值
+
+
+        int number_sum = 0;                        //用于储存数组中每个位的累加值
+
+
+       for(int i = 0; i < nums_length; i++){       //实现预期输出的效果值     
+
+            number_sum += nums[i];
+
+            sum[i] = number_sum;
+
+       }
+
+       
+       return sum;                                 //返回处理好的实现数据结果   
+
+           
+
+            
+    }
+
+}
