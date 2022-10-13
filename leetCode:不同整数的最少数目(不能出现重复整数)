@@ -1,0 +1,76 @@
+/**
+ *分析:
+ *依题意得
+ *
+ *解题思路：
+ *    为了不损坏原数组arr里面的数据且方便后面对数据的处理，可以先创建一个ArrayList<Integer>类型的arr_List集合对象 
+ *用于储存arr数组的数据。定义一个int类型变量common_number用于后续发现arr_List集合中相同的值，然后去移除相同的值，
+ *保留不相同的值在里面，实现（找出移除后数组中不同整数的最少数目）。
+ *又因为移除K个元素，它移除的位置是随机的（对比示例1和示例2），所以必须创建一个随机数对象random,用于生成随机数，且因为
+ *它移除的范围始终在arr_List集合长度范围内（arr数组长度范围内），且数组的位置为0，1，2这样的整型数据，所以需要把调用
+ *random对象中的nextInt方法，并且把arr_List集合长度作为实参传给nextInt方法.
+ *由于arr_List集合内相同的值都被移除，所以留下来的都是不相同的值，只需要计算出arr_List集合内元素的个数作为数据返回即可
+ *
+ */
+
+class Solution {
+
+
+    public int findLeastNumOfUniqueInts(int[] arr, int k) {
+
+       
+        ArrayList <Integer> arr_List = new ArrayList<>();   //用于储存arr数组的数据，方便以后对这些数据的处理和对原数据的保护
+        
+        
+        int common_number = 0;                              //用于发现移除K个元素后，arr_List集合内相同的值
+
+
+        Random random = new Random();                       //用于生成随机数，实现题目移除数据位置随机的逻辑
+
+
+        int random_number = 0;                              //用于储存生成的随机数
+
+
+        for(int i = 0; i < arr.length; i++){                //将arr数组数据搬到arr_List集合中，起到对arr数组数据的保护和方便对数据的处理
+
+            arr_List.add(arr[i]);
+
+        }
+
+
+        for(int i = 0; i < k; i++){                         //用于随机移除K位元素
+            
+            random_number = random.nextInt(arr_List.size());
+
+            arr_List.remove(random_number);
+
+        }
+
+
+        if(arr_List.size() == 1){                           //如果arr_List集合内元素在移除后只剩下一个则不参与以下计算直接返回1
+
+                return 1;
+
+        }
+
+
+        for(int i = 0; i < arr_List.size()-1; i++){           //用于移除arr_List集合内相同的值
+
+            common_number = arr_List.get(i).intValue();
+
+            for(int j = i+1; j < arr_List.size(); j++){       //用于发现arr_List集合内相同的值
+
+            if (common_number == arr_List.get(j).intValue()){
+
+                arr_List.remove(j);                         //移除arr_List集合内相同的值
+                }
+           
+            }
+       
+        }
+
+
+        return arr_List.size();                             //返回arr_List集合的长度，实现找出移除后数组中不同整数的最少数目
+
+    }
+}
